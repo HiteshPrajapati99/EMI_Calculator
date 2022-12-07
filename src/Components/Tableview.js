@@ -33,11 +33,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Tableview({ data }) {
   return (
-    <div style={{ marginTop: "2rem", textAlign: "center" }}>
+    <div
+      style={{ marginTop: "2rem", textAlign: "center" }}
+      className="div-table"
+    >
       <h1>Table View </h1>
       <div>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableContainer
+          component={Paper}
+          style={{ marginTop: "2rem", width: "40rem" }}
+        >
+          <Table aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell> Principal (A)</StyledTableCell>
@@ -47,16 +53,24 @@ export default function Tableview({ data }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => (
-                <StyledTableRow key={row.interestSum}>
-                  <StyledTableCell>{Math.round(row.capital)}</StyledTableCell>
-                  <StyledTableCell>{Math.round(row.interest)}</StyledTableCell>
-                  <StyledTableCell>
-                    {Math.round(row.installment)}
-                  </StyledTableCell>
-                  <StyledTableCell>{Math.round(row.remain)}</StyledTableCell>
-                </StyledTableRow>
-              ))}
+              {data === 0
+                ? "No Data"
+                : data.map((row) => (
+                    <StyledTableRow key={row.interestSum}>
+                      <StyledTableCell>
+                        {Math.round(row.capital)}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {Math.round(row.interest)}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {Math.round(row.installment)}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {Math.round(row.remain)}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
             </TableBody>
           </Table>
         </TableContainer>

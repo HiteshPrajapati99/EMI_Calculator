@@ -8,7 +8,6 @@ export default function EmiCalculator() {
     amount: "",
     intrest: "",
     month: "",
-    year: "",
   });
 
   const hendleinput = (e) => {
@@ -25,9 +24,10 @@ export default function EmiCalculator() {
     setAllData({
       amount: "",
       intrest: "",
-      year: "",
+      month: "",
     });
     setcalculatedata("");
+    settable([]);
   };
 
   const hendlesubmit = (e) => {
@@ -62,81 +62,79 @@ export default function EmiCalculator() {
 
     let loan = new loanjs.Loan(amount, month, rate);
     settable(loan.installments);
-    console.log(loan.installments);
+    // console.log(loan.installments);
   }
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          gap: "3rem",
-        }}
-      >
-        <Box
-          sx={{
-            marginTop: "2rem",
-            marginLeft: "2rem",
-            width: 700,
-            height: 520,
-            backgroundColor: "ButtonHighlight",
-          }}
-        >
-          <Typography variant="h4" align="center" marginTop="1rem">
-            EMI Calculator
-          </Typography>
-          <form>
-            <TextField
-              type="number"
-              label="Enter Amount"
-              variant="outlined"
-              name="amount"
-              value={AllData.amount}
-              onChange={hendleinput}
-            />
+      <div className="maindiv">
+        <div className="div-1">
+          <Box
+            className="box"
+            sx={{
+              marginTop: "2rem",
+              marginLeft: "2rem",
+              width: 700,
+              height: 520,
+              // backgroundColor: "ButtonHighlight",
+            }}
+          >
+            <Typography variant="h4" align="center" marginTop="1rem">
+              EMI Calculator
+            </Typography>
+            <form>
+              <TextField
+                type="number"
+                label="Enter Amount"
+                variant="outlined"
+                name="amount"
+                value={AllData.amount}
+                onChange={hendleinput}
+              />
 
-            <TextField
-              type="number"
-              label="Enter Interest Rate"
-              variant="outlined"
-              name="intrest"
-              value={AllData.intrest}
-              onChange={hendleinput}
-            />
-            <TextField
-              type="number"
-              label="Enter Month"
-              variant="outlined"
-              name="month"
-              value={AllData.month}
-              onChange={hendleinput}
-            />
-            <div className="buttons">
-              <Button variant="contained" size="large" onClick={hendlesubmit}>
-                Calculate
-              </Button>
-              <Button variant="contained" size="large" onClick={hendlereset}>
-                Reset
-              </Button>
-              <Button variant="contained" onClick={calculate_sheet}>
-                Get Table View
-              </Button>
+              <TextField
+                name="intrest"
+                label="Enter Interest"
+                value={AllData.intrest}
+                onChange={hendleinput}
+              />
+              <TextField
+                type="number"
+                label="Enter Month"
+                variant="outlined"
+                name="month"
+                value={AllData.month}
+                onChange={hendleinput}
+              />
+              <div className="buttons">
+                <Button variant="contained" size="large" onClick={hendlesubmit}>
+                  Calculate
+                </Button>
+                <Button variant="contained" size="large" onClick={hendlereset}>
+                  Reset
+                </Button>
+                <Button variant="contained" onClick={calculate_sheet}>
+                  Get Table View
+                </Button>
+              </div>
+            </form>
+
+            <div className="resultdata">
+              <Box className="boxdata">
+                Monthly payment {calculatedata.monthly}
+              </Box>
+              <Box className="boxdata">
+                Total Interest {calculatedata.total_interest}
+              </Box>
+              <Box className="boxdata">
+                Total Amount {calculatedata.total_pay}
+              </Box>
             </div>
-          </form>
-
-          <div className="resultdata">
-            <Box className="boxdata">
-              Monthly payment {calculatedata.monthly}
-            </Box>
-            <Box className="boxdata">
-              Total Interest {calculatedata.total_interest}
-            </Box>
-            <Box className="boxdata">
-              Total Amount {calculatedata.total_pay}
-            </Box>
-          </div>
-        </Box>
-        <Tableview data={table} />
+          </Box>
+        </div>
+        <div className="div-2">
+          <Tableview data={table} />
+        </div>
       </div>
     </>
   );
